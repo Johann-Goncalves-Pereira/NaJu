@@ -132,19 +132,19 @@ export default function ProjectsPage() {
 							.sort((a: Project, b: Project) => b.updatedAt - a.updatedAt)
 							.map((project: Project) => (
 								<li key={project.id}>
-									<button
-										onClick={() => handleSelectProject(project.id)}
-										className='flex w-full touch-manipulation items-center justify-between rounded-xl bg-white p-4 shadow-sm transition-transform active:scale-[0.98] dark:bg-zinc-800'
-										type='button'
-									>
-										<div className='flex flex-col items-start gap-1'>
+									<div className='flex w-full touch-manipulation items-center justify-between rounded-xl bg-white p-4 shadow-sm transition-transform active:scale-[0.98] dark:bg-zinc-800'>
+										<button
+											onClick={() => handleSelectProject(project.id)}
+											className='flex flex-1 flex-col items-start gap-1 text-left'
+											type='button'
+										>
 											<span className='text-lg font-medium text-zinc-800 dark:text-zinc-100'>
 												{project.name}
 											</span>
 											<span className='text-sm text-zinc-500 dark:text-zinc-400'>
 												{project.rows}×{project.cols} • {project.colors.length} colors
 											</span>
-										</div>
+										</button>
 
 										<div className='flex items-center gap-2'>
 											<button
@@ -156,7 +156,7 @@ export default function ProjectsPage() {
 												<Trash2 size={20} />
 											</button>
 										</div>
-									</button>
+									</div>
 								</li>
 							))}
 					</ul>
