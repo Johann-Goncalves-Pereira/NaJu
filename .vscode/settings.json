@@ -1,0 +1,154 @@
+{
+	"explorer.fileNesting.enabled": true,
+	"explorer.fileNesting.patterns": {
+		"*.ts": "${capture}.js",
+		"*.js": "${capture}.js.map, ${capture}.min.js, ${capture}.d.ts",
+		"*.jsx": "${capture}.js",
+		"*.tsx": "${capture}.module.scss, ${capture}.ts",
+		"package.json": "pnpm-lock.yaml",
+		"tsconfig.json": "tsconfig.*.json, jsconfig.json",
+		"vite.config.ts": "*.config.js, *.config.ts, *.config.cjs, *.config.mjs, *.config.mts, components.json, index.*, vercel.json",
+		".gitignore": ".*ignore, .gitlab*, .env*"
+	},
+	"editor.formatOnSave": true,
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"prettier.preferLocal": true,
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": "explicit",
+		"source.fixAll.format": "explicit",
+		"source.fixAll": "explicit",
+		"source.organizeImports": "explicit"
+	},
+	"[ignore]": {
+		"editor.defaultFormatter": "foxundermoon.shell-format"
+	},
+
+	"better-comments.highlightPlainText": true,
+	"better-comments.tags": [
+		{
+			//: Alert
+			"tag": "!",
+			"color": "#dc2626",
+			"strikethrough": false,
+			"underline": false,
+			"backgroundColor": "transparent",
+			"bold": false,
+			"italic": false
+		},
+		{
+			//: Todo
+			"tag": "todo",
+			"color": "#ea580c",
+			"strikethrough": false,
+			"underline": false,
+			"backgroundColor": "transparent",
+			"bold": false,
+			"italic": false
+		},
+		{
+			//: Don't change && Note
+			"tag": "&",
+			"color": "#db2777",
+			"strikethrough": false,
+			"underline": false,
+			"backgroundColor": "transparent",
+			"bold": false,
+			"italic": false
+		},
+		{
+			//: Instructions & Descriptions
+			"tag": "*",
+			"color": "#f59e0b",
+			"strikethrough": false,
+			"underline": false,
+			"backgroundColor": "transparent",
+			"bold": false,
+			"italic": false
+		},
+		{
+			//: Question & Info
+			"tag": "?",
+			"color": "#2563eb",
+			"strikethrough": false,
+			"underline": false,
+			"backgroundColor": "transparent",
+			"bold": false,
+			"italic": false
+		},
+		{
+			//: Warning
+			"tag": "#",
+			"color": "#4f46e5",
+			"strikethrough": false,
+			"underline": false,
+			"backgroundColor": "transparent",
+			"bold": false,
+			"italic": false
+		},
+		{
+			//: Tags
+			"tag": ":",
+			"color": "#84cc16",
+			"strikethrough": false,
+			"underline": false,
+			"backgroundColor": "transparent",
+			"bold": false,
+			"italic": false
+		},
+		{
+			//: Tags
+			"tag": ">",
+			"color": "#e2F510",
+			"strikethrough": false,
+			"underline": false,
+			"backgroundColor": "transparent",
+			"bold": false,
+			"italic": false
+		},
+		{
+			//: Lagacy
+			"tag": "//",
+			"color": "#474747",
+			"strikethrough": true,
+			"underline": false,
+			"backgroundColor": "transparent",
+			"bold": false,
+			"italic": false
+		}
+	],
+	"emeraldwalk.runonsave": {
+		"shell": "/bin/zsh",
+		"autoClearConsole": true,
+		"autoShowOutputPanel": "always",
+		"commands": [
+			{
+				"match": "src/lib/translate/translations\\.ts$",
+				"cmd": "npm run generate-types"
+			}
+		]
+	},
+	"files.watcherExclude": {
+		"**/node_modules/**": true,
+		"**/.git/**": true,
+		"**/dist/**": true,
+		"**/build/**": true
+	},
+	"cSpell.words": [
+		"apexcharts",
+		"Ecommerce",
+		"Meore",
+		"mɛɔrɛ",
+		"Mkhares",
+		"mxɑrɛs",
+		"Revex",
+		"trivago",
+		"Wordle",
+		"Xoice",
+		"ალქიმიკოსები",
+		"მეორე",
+		"მოგვები",
+		"მხარეს",
+		"ღვთაება",
+		"ღმერთი"
+	]
+}

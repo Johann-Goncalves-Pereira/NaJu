@@ -1,0 +1,216 @@
+@import 'tailwindcss';
+
+@font-face {
+	font-family: 'DM Ertoba';
+	src: url('/fonts/DM-Ertoba.ttf') format('truetype');
+	font-weight: 400 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'EB Garamond';
+	src: url('/fonts/EB-Garamond.ttf') format('truetype');
+	font-weight: 400 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Shantell Sans';
+	src: url('/fonts/Shantell-Sans.ttf') format('truetype');
+	font-weight: 400 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Victor Mono';
+	src: url('/fonts/Victor-Mono.otf') format('opentype');
+	font-weight: 400 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Sinchon Rhapsody';
+	src: url('/fonts/Sinchon-Rhapsody.ttf') format('truetype');
+	font-weight: 400 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Chalk S JP';
+	src: url('/fonts/Chalk-S-JP.otf') format('opentype');
+	font-weight: 400 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Hanyi Senty Pagoda';
+	src: url('/fonts/Hanyi-Senty-Pagoda.ttf') format('truetype');
+	font-weight: 400 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'TT Marxiana';
+	src: url('/fonts/TT-Marxiana.ttf') format('truetype');
+	font-weight: 400 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Arabic Language';
+	src: url('/fonts/Arslan-Wessam_Arabic.ttf') format('truetype');
+	font-weight: 400 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Hebrew Language';
+	src: url('/fonts/Paskol-Bold_Hebrew.ttf') format('truetype');
+	font-weight: 400 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Devanagari Language';
+	src: url('/fonts/Devanagari.ttf') format('truetype');
+	font-weight: 400 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Odia Language';
+	src: url('/fonts/Hatalekha_Odia.ttf') format('truetype');
+	font-weight: 400 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Bengali Language';
+	src: url('/fonts/AFN-Mahin-Eraboti-SAU-Unicode_Bengali.otf') format('truetype');
+	font-weight: 400 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Thai Language';
+	src: url('/fonts/Itim-Regular_Thai.otf') format('truetype');
+	font-weight: 400 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Amharic Language';
+	src: url('/fonts/Goffer_Amharic.ttf') format('truetype');
+	font-weight: 400 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Armenian Language';
+	src: url('/fonts/ArTar-TumanianDzeragir-U_Armenian.ttf') format('truetype');
+	font-weight: 400 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Greek Language';
+	src: url('/fonts/Greek-Freak.ttf') format('truetype');
+	font-weight: 400 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+@theme {
+	--font-family-sans: 'DM Ertoba', sans-serif;
+	--font-family-serif: 'EB Garamond', serif;
+	--font-family-mono: 'Victor Mono', monospace;
+	--font-family-handwriting: 'Shantell Sans', cursive;
+	--font-family-korean: 'Sinchon Rhapsody', sans-serif;
+	--font-family-japanese: 'Chalk S JP', sans-serif;
+	--font-family-cjk: 'Hanyi Senty Pagoda', sans-serif;
+	--font-family-cyrillic: 'TT Marxiana', serif;
+	--font-family-arabic: 'Arabic Language', serif;
+	--font-family-hebrew: 'Hebrew Language', serif;
+	--font-family-devanagari: 'Devanagari Language', serif;
+	--font-family-bengali: 'Bengali Language', serif;
+	--font-family-thai: 'Thai Language', serif;
+	--font-family-amharic: 'Amharic Language', serif;
+	--font-family-armenian: 'Armenian Language', serif;
+	--font-family-greek: 'Greek Language', serif;
+
+	/* --accent will be written at runtime by the accent manager. Provide
+	   sensible fallbacks so build-time tools can show something. */
+	--color-accent-100: oklch(from var(--accent) calc(l + 0.4) c h);
+	--color-accent-200: oklch(from var(--accent) calc(l + 0.3) c h);
+	--color-accent-300: oklch(from var(--accent) calc(l + 0.2) c h);
+	--color-accent-400: oklch(from var(--accent) calc(l + 0.1) c h);
+	--color-accent-500: var(--accent);
+	--color-accent-600: oklch(from var(--accent) calc(l - 0.1) c h);
+	--color-accent-700: oklch(from var(--accent) calc(l - 0.2) c h);
+	--color-accent-800: oklch(from var(--accent) calc(l - 0.3) c h);
+	--color-accent-900: oklch(from var(--accent) calc(l - 0.4) c h);
+
+	/* Widths */
+	--width-readable: clamp(49.5rem, 47.25rem + 10vw, 55rem);
+}
+
+@layer components {
+	.shadow-absolute {
+		box-shadow:
+			0 0 1rem 0.125rem oklch(88% 0.005 285.823),
+			0 0 0 200dvw var(--color-zinc-50);
+
+		@media (prefers-color-scheme: dark) {
+			box-shadow:
+				0 0 1rem 0.125rem oklch(12% 0.005 285.823),
+				0 0 0 200dvw var(--color-zinc-800);
+		}
+	}
+
+	.cursor-blur {
+		filter: blur(128px);
+	}
+
+	.blob {
+		border-radius: 33% 67% 63% 37% / 52% 44% 56% 48%;
+		animation: rotate 8s ease-in-out infinite;
+	}
+}
+
+@keyframes rotate {
+	from {
+		rotate: 0deg;
+	}
+	to {
+		rotate: 360deg;
+	}
+}
+
+:focus,
+:focus-visible {
+	outline: 2px solid var(--accent-400);
+	outline-offset: 2px;
+}
+
+select {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	text-indent: 1px;
+	text-overflow: '';
+}
