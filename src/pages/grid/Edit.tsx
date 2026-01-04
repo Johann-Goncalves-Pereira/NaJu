@@ -150,7 +150,7 @@ export default function EditPage() {
 
 	return (
 		<main
-			className='flex h-dvh w-full flex-col items-center justify-start gap-4 overflow-hidden p-4'
+			className='flex h-dvh min-h-0 w-full flex-col items-center justify-start gap-4 overflow-auto p-4'
 			onPointerUp={handlePointerUp}
 			onPointerLeave={handlePointerUp}
 		>
@@ -205,14 +205,14 @@ export default function EditPage() {
 			</div>
 
 			{/* Grid */}
-			<div className='flex flex-1 items-center justify-center overflow-auto'>
+			<div className='flex min-h-0 flex-1 items-start justify-center overflow-auto py-1'>
 				<div
 					ref={gridRef}
-					className='grid gap-px rounded-lg bg-zinc-200 p-1 dark:bg-zinc-700'
+					className='grid gap-px rounded-lg bg-zinc-200 p-px dark:bg-zinc-700'
 					style={{
 						gridTemplateRows: `repeat(${project.rows}, ${project.cellSize}px)`,
 						gridTemplateColumns: `repeat(${project.cols}, ${project.cellSize}px)`,
-						touchAction: 'none', // Prevent scroll while drawing
+						touchAction: isPainting ? 'none' : 'pan-x pan-y', // Allow panning when not painting
 					}}
 					role='grid'
 					aria-label='Drawing grid'
@@ -224,7 +224,7 @@ export default function EditPage() {
 								key={`${cell.row}-${cell.col}`}
 								role='gridcell'
 								aria-label={`Cell ${cell.row + 1}, ${cell.col + 1}`}
-								className='cursor-pointer rounded-sm transition-colors'
+								className='cursor-pointer rounded-sm outline outline-zinc-300 transition-colors'
 								style={{
 									width: project.cellSize,
 									height: project.cellSize,
