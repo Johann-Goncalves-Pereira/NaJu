@@ -33,21 +33,63 @@ export default function ExportPage() {
 		return new Map(project.colors.map((c: CellColor) => [c.id, c.hex]))
 	}, [project])
 
+	// Contrast helpers: convert hex -> luminance -> readable text colors
+	const hexToRgb = useCallback((hex: string) => {
+		hex = hex.replace('#', '')
+		if (hex.length === 3)
+			hex = hex
+				.split('')
+				.map(h => h + h)
+				.join('')
+		const r = parseInt(hex.substring(0, 2), 16)
+		const g = parseInt(hex.substring(2, 4), 16)
+		const b = parseInt(hex.substring(4, 6), 16)
+		return { r, g, b }
+	}, [])
+
+	const getContrastColors = useCallback(
+		(hex: string) => {
+			try {
+				const { r, g, b } = hexToRgb(hex)
+				// relative luminance (0..1)
+				const sr = r / 255
+				const sg = g / 255
+				const sb = b / 255
+				const lin = (c: number) => (c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4))
+				const L = 0.2126 * lin(sr) + 0.7152 * lin(sg) + 0.0722 * lin(sb)
+				// threshold: pick dark text on bright backgrounds
+				if (L > 0.5) {
+					return { main: '#111827', sub: '#374151' }
+				}
+				return { main: '#ffffff', sub: '#e5e7eb' }
+			} catch (error) {
+				console.warn('Error calculating contrast colors for hex:', hex, error)
+				return { main: '#111827', sub: '#374151' }
+			}
+		},
+		[hexToRgb],
+	)
+
 	// Generate SVG content for download
 	const generateSVG = useCallback(() => {
 		if (!project) return ''
 
-		const cellSize = project.cellSize
+		// Visual spacing and rounding to match Edit view
+		const gap = 2 // px between cells
+		const radius = Math.max(2, Math.floor(project.cellSize * 0.12))
+		const cellSize = project.cellSize - gap
 		const labelSize = 20
 		const padding = 10
-		const width = project.cols * cellSize + labelSize + padding * 2
-		const height = project.rows * cellSize + labelSize + padding * 2
+		const width = project.cols * (cellSize + gap) + labelSize + padding * 2 - gap
+		const height = project.rows * (cellSize + gap) + labelSize + padding * 2 - gap
 
 		let svg = `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
   <style>
     .label { font-family: system-ui, sans-serif; font-size: 10px; fill: #71717a; }
     .cell { stroke: #e4e4e7; stroke-width: 1; }
+		.coord-main { font-family: system-ui, sans-serif; font-size: 10px; }
+		.coord-sub { font-family: system-ui, sans-serif; font-size: 9px; }
   </style>
   
   <!-- Background -->
@@ -76,16 +118,25 @@ export default function ExportPage() {
 
 		// Grid cells
 		cells.forEach(cell => {
-			const x = labelSize + padding + cell.col * cellSize
-			const y = labelSize + padding + cell.row * cellSize
+			const x = labelSize + padding + cell.col * (cellSize + gap)
+			const y = labelSize + padding + cell.row * (cellSize + gap)
 			const fill = cell.colorId ? (colorMap.get(cell.colorId) ?? '#ffffff') : '#ffffff'
-			svg += `  <rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" fill="${fill}" class="cell"/>\n`
+			// Rounded rect for the cell (provides gap visual)
+			svg += `  <rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" rx="${radius}" ry="${radius}" fill="${fill}" class="cell"/>\n`
+			// Stacked coordinates: column letter above, row number below (centered)
+			const colLabel = getColumnLabel(cell.col)
+			const centerX = x + cellSize / 2
+			const mainY = y + cellSize / 2 - 4
+			const subY = y + cellSize / 2 + 8
+			const contrasts = getContrastColors(fill)
+			svg += `  <text x="${centerX}" y="${mainY}" text-anchor="middle" class="coord-main" fill="${contrasts.main}">${colLabel}</text>\n`
+			svg += `  <text x="${centerX}" y="${subY}" text-anchor="middle" class="coord-sub" fill="${contrasts.sub}">${cell.row + 1}</text>\n`
 		})
 
 		svg += `</svg>`
 
 		return svg
-	}, [cells, colorMap, getColumnLabel, project])
+	}, [cells, colorMap, getColumnLabel, getContrastColors, project])
 
 	const handleDownload = useCallback(() => {
 		if (!project) return
@@ -119,10 +170,13 @@ export default function ExportPage() {
 		)
 	}
 
-	const cellSize = project.cellSize
+	// Match visual spacing and rounding from Edit view
+	const gap = 2
+	const radius = Math.max(2, Math.floor(project.cellSize * 0.12))
+	const cellSize = project.cellSize - gap
 	const labelSize = 24
-	const gridWidth = project.cols * cellSize
-	const gridHeight = project.rows * cellSize
+	const gridWidth = project.cols * (cellSize + gap) - gap
+	const gridHeight = project.rows * (cellSize + gap) - gap
 
 	return (
 		<main className='flex h-dvh w-full flex-col items-center justify-start gap-6 overflow-auto p-6'>
@@ -185,23 +239,52 @@ export default function ExportPage() {
 								</text>
 							))}
 
-							{/* Grid cells */}
+							{/* Grid cells with gap, rounding and stacked coords */}
 							{cells.map(cell => {
-								const x = labelSize + cell.col * cellSize
-								const y = labelSize + cell.row * cellSize
+								const x = labelSize + cell.col * (cellSize + gap)
+								const y = labelSize + cell.row * (cellSize + gap)
 								const fill = cell.colorId ? (colorMap.get(cell.colorId) ?? '#ffffff') : '#ffffff'
+								const colLabel = getColumnLabel(cell.col)
+								const contrasts = getContrastColors(fill)
 								return (
-									<rect
-										key={`${cell.row}-${cell.col}`}
-										x={x}
-										y={y}
-										width={cellSize}
-										height={cellSize}
-										fill={fill as string}
-										stroke='#e4e4e7'
-										strokeWidth={1}
-										className='dark:stroke-zinc-600'
-									/>
+									<g key={`${cell.row}-${cell.col}`}>
+										<rect
+											x={x}
+											y={y}
+											width={cellSize}
+											height={cellSize}
+											rx={radius}
+											ry={radius}
+											fill={fill as string}
+											stroke='#e4e4e7'
+											strokeWidth={1}
+											className='dark:stroke-zinc-600'
+										/>
+										<text
+											x={x + cellSize / 2}
+											y={y + cellSize / 2 - 4}
+											textAnchor='middle'
+											style={{
+												fontFamily: 'system-ui, sans-serif',
+												fill: contrasts.main,
+												fontSize: 10,
+											}}
+										>
+											{colLabel}
+										</text>
+										<text
+											x={x + cellSize / 2}
+											y={y + cellSize / 2 + 8}
+											textAnchor='middle'
+											style={{
+												fontFamily: 'system-ui, sans-serif',
+												fill: contrasts.sub,
+												fontSize: 9,
+											}}
+										>
+											{cell.row + 1}
+										</text>
+									</g>
 								)
 							})}
 						</svg>
