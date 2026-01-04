@@ -9,72 +9,107 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as WordleRouteImport } from './routes/wordle'
-import { Route as LoveRouteImport } from './routes/love'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as GridIndexRouteImport } from './routes/grid/index'
+import { Route as GridSizeRouteImport } from './routes/grid/size'
+import { Route as GridExportRouteImport } from './routes/grid/export'
+import { Route as GridEditRouteImport } from './routes/grid/edit'
+import { Route as GridColorsRouteImport } from './routes/grid/colors'
 
-const WordleRoute = WordleRouteImport.update({
-  id: '/wordle',
-  path: '/wordle',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LoveRoute = LoveRouteImport.update({
-  id: '/love',
-  path: '/love',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GridIndexRoute = GridIndexRouteImport.update({
+  id: '/grid/',
+  path: '/grid/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GridSizeRoute = GridSizeRouteImport.update({
+  id: '/grid/size',
+  path: '/grid/size',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GridExportRoute = GridExportRouteImport.update({
+  id: '/grid/export',
+  path: '/grid/export',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GridEditRoute = GridEditRouteImport.update({
+  id: '/grid/edit',
+  path: '/grid/edit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GridColorsRoute = GridColorsRouteImport.update({
+  id: '/grid/colors',
+  path: '/grid/colors',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/love': typeof LoveRoute
-  '/wordle': typeof WordleRoute
+  '/grid/colors': typeof GridColorsRoute
+  '/grid/edit': typeof GridEditRoute
+  '/grid/export': typeof GridExportRoute
+  '/grid/size': typeof GridSizeRoute
+  '/grid': typeof GridIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/love': typeof LoveRoute
-  '/wordle': typeof WordleRoute
+  '/grid/colors': typeof GridColorsRoute
+  '/grid/edit': typeof GridEditRoute
+  '/grid/export': typeof GridExportRoute
+  '/grid/size': typeof GridSizeRoute
+  '/grid': typeof GridIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/love': typeof LoveRoute
-  '/wordle': typeof WordleRoute
+  '/grid/colors': typeof GridColorsRoute
+  '/grid/edit': typeof GridEditRoute
+  '/grid/export': typeof GridExportRoute
+  '/grid/size': typeof GridSizeRoute
+  '/grid/': typeof GridIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/love' | '/wordle'
+  fullPaths:
+    | '/'
+    | '/grid/colors'
+    | '/grid/edit'
+    | '/grid/export'
+    | '/grid/size'
+    | '/grid'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/love' | '/wordle'
-  id: '__root__' | '/' | '/love' | '/wordle'
+  to:
+    | '/'
+    | '/grid/colors'
+    | '/grid/edit'
+    | '/grid/export'
+    | '/grid/size'
+    | '/grid'
+  id:
+    | '__root__'
+    | '/'
+    | '/grid/colors'
+    | '/grid/edit'
+    | '/grid/export'
+    | '/grid/size'
+    | '/grid/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  LoveRoute: typeof LoveRoute
-  WordleRoute: typeof WordleRoute
+  GridColorsRoute: typeof GridColorsRoute
+  GridEditRoute: typeof GridEditRoute
+  GridExportRoute: typeof GridExportRoute
+  GridSizeRoute: typeof GridSizeRoute
+  GridIndexRoute: typeof GridIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/wordle': {
-      id: '/wordle'
-      path: '/wordle'
-      fullPath: '/wordle'
-      preLoaderRoute: typeof WordleRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/love': {
-      id: '/love'
-      path: '/love'
-      fullPath: '/love'
-      preLoaderRoute: typeof LoveRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -82,13 +117,51 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/grid/': {
+      id: '/grid/'
+      path: '/grid'
+      fullPath: '/grid'
+      preLoaderRoute: typeof GridIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/grid/size': {
+      id: '/grid/size'
+      path: '/grid/size'
+      fullPath: '/grid/size'
+      preLoaderRoute: typeof GridSizeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/grid/export': {
+      id: '/grid/export'
+      path: '/grid/export'
+      fullPath: '/grid/export'
+      preLoaderRoute: typeof GridExportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/grid/edit': {
+      id: '/grid/edit'
+      path: '/grid/edit'
+      fullPath: '/grid/edit'
+      preLoaderRoute: typeof GridEditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/grid/colors': {
+      id: '/grid/colors'
+      path: '/grid/colors'
+      fullPath: '/grid/colors'
+      preLoaderRoute: typeof GridColorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  LoveRoute: LoveRoute,
-  WordleRoute: WordleRoute,
+  GridColorsRoute: GridColorsRoute,
+  GridEditRoute: GridEditRoute,
+  GridExportRoute: GridExportRoute,
+  GridSizeRoute: GridSizeRoute,
+  GridIndexRoute: GridIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
