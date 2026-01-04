@@ -1,9 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/grid/export')({
-	component: RouteComponent,
-})
+import ExportPage from '@pages/grid/Export'
 
-function RouteComponent() {
-	return <div>Hello "/grid/export"!</div>
-}
+export const Route = createFileRoute('/grid/export')({
+	component: ExportPage,
+})

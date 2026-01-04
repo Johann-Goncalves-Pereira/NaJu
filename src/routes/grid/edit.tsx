@@ -1,9 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/grid/edit')({
-	component: RouteComponent,
-})
+import EditPage from '@pages/grid/Edit'
 
-function RouteComponent() {
-	return <div>Hello "/grid/edit"!</div>
-}
+export const Route = createFileRoute('/grid/edit')({
+	component: EditPage,
+})

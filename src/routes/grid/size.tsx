@@ -1,9 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/grid/size')({
-	component: RouteComponent,
-})
+import SizePage from '@pages/grid/Size'
 
-function RouteComponent() {
-	return <div>Hello "/grid/size"!</div>
-}
+export const Route = createFileRoute('/grid/size')({
+	component: SizePage,
+})
