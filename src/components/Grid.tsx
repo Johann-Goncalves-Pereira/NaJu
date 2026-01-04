@@ -11,7 +11,7 @@ export default function Grid({ rows, cols, cells }: GridProps) {
 
 	return (
 		<div
-			className='grid content-start gap-0'
+			className='grid h-max w-max content-start gap-px'
 			role='grid'
 			style={{
 				gridTemplateRows,
@@ -25,7 +25,7 @@ export default function Grid({ rows, cols, cells }: GridProps) {
 					key={cell.id}
 					role='gridcell'
 					aria-label={`Cell ${cell.row + 1}, ${cell.col + 1}`}
-					className='bg-white outline outline-zinc-200'
+					className='rounded-lg bg-white outline outline-zinc-200'
 					style={{
 						width: cellSize,
 						height: cellSize,
