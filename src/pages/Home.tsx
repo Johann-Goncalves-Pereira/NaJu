@@ -1,10 +1,19 @@
 export default function Home() {
 	return (
 		<main className='flex h-dvh w-full flex-col items-center justify-center gap-3 text-center'>
-			<h1 className='font-family-serif m-0 text-5xl'>naju</h1>
-			<p className='max-w-readable px-6 text-zinc-950/60 dark:text-white/60'>
-				Clean starting point.
-			</p>
+			<div className='flex items-center gap-4'>
+				<span className='flex items-center gap-2'>
+					<button className='size-8 rounded-full bg-rose-500/25 pb-0.5'>-</button>
+					<p>12</p>
+					<button className='size-8 rounded-full bg-emerald-500/25 pb-0.5'>+</button>
+				</span>
+				<em className='mx-4 text-2xl font-semibold'>x</em>
+				<span className='flex items-center gap-2'>
+					<button className='size-8 rounded-full bg-rose-500/25 pb-0.5'>-</button>
+					<p>12</p>
+					<button className='size-8 rounded-full bg-emerald-500/25 pb-0.5'>+</button>
+				</span>
+			</div>
 		</main>
 	)
 }
