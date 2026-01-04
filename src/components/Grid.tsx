@@ -24,7 +24,7 @@ export default function Grid({ rows, cols, cells }: GridProps) {
 				<div
 					key={cell.id}
 					role='gridcell'
-					aria-label={`Cell ${cell.row + 1}, ${cell.col + 1}`}
+					aria-label={`Célula ${cell.row + 1}, ${cell.col + 1}`}
 					className='rounded-lg bg-white outline outline-zinc-200'
 					style={{
 						width: cellSize,

@@ -78,13 +78,13 @@ export default function SizePage() {
 		return (
 			<main className='flex h-dvh w-full items-center justify-center'>
 				<div className='text-center'>
-					<p className='text-lg text-zinc-500'>No project selected</p>
+					<p className='text-lg text-zinc-500'>Nenhum projeto selecionado</p>
 					<button
 						onClick={() => navigate({ to: '/grid' })}
 						className='mt-4 rounded-xl bg-zinc-900 px-6 py-3 text-white dark:bg-zinc-100 dark:text-zinc-900'
 						type='button'
 					>
-						Go to Projects
+						Ir para projetos
 					</button>
 				</div>
 			</main>
@@ -97,9 +97,11 @@ export default function SizePage() {
 
 			<section className='flex w-full max-w-2xl flex-col gap-6'>
 				<header>
-					<h1 className='text-2xl font-semibold text-zinc-800 dark:text-zinc-100'>Grid Size</h1>
+					<h1 className='text-2xl font-semibold text-zinc-800 dark:text-zinc-100'>
+						Tamanho da grade
+					</h1>
 					<p className='mt-1 text-zinc-500 dark:text-zinc-400'>
-						Configure the dimensions of your pixel art
+						Configure as dimensões da sua arte de tricô
 					</p>
 				</header>
 
@@ -107,14 +109,14 @@ export default function SizePage() {
 				<div className='flex flex-col gap-4 rounded-xl bg-white p-6 shadow-sm dark:bg-zinc-800'>
 					{/* Rows control */}
 					<div className='flex items-center justify-between'>
-						<label className='text-lg font-medium text-zinc-700 dark:text-zinc-300'>Rows</label>
+						<label className='text-lg font-medium text-zinc-700 dark:text-zinc-300'>Linhas</label>
 						<div className='flex items-center gap-2'>
 							<button
 								onClick={() => handleRowsChange(-1)}
 								disabled={project.rows <= 1}
 								className='flex h-12 w-12 touch-manipulation items-center justify-center rounded-xl bg-zinc-100 text-zinc-700 transition-transform active:scale-95 disabled:opacity-30 dark:bg-zinc-700 dark:text-zinc-300'
 								type='button'
-								aria-label='Decrease rows'
+								aria-label='Diminuir linhas'
 							>
 								<Minus size={24} />
 							</button>
@@ -131,7 +133,7 @@ export default function SizePage() {
 								disabled={project.rows >= 64}
 								className='flex h-12 w-12 touch-manipulation items-center justify-center rounded-xl bg-zinc-100 text-zinc-700 transition-transform active:scale-95 disabled:opacity-30 dark:bg-zinc-700 dark:text-zinc-300'
 								type='button'
-								aria-label='Increase rows'
+								aria-label='Aumentar linhas'
 							>
 								<Plus size={24} />
 							</button>
@@ -140,14 +142,14 @@ export default function SizePage() {
 
 					{/* Columns control */}
 					<div className='flex items-center justify-between'>
-						<label className='text-lg font-medium text-zinc-700 dark:text-zinc-300'>Columns</label>
+						<label className='text-lg font-medium text-zinc-700 dark:text-zinc-300'>Colunas</label>
 						<div className='flex items-center gap-2'>
 							<button
 								onClick={() => handleColsChange(-1)}
 								disabled={project.cols <= 1}
 								className='flex h-12 w-12 touch-manipulation items-center justify-center rounded-xl bg-zinc-100 text-zinc-700 transition-transform active:scale-95 disabled:opacity-30 dark:bg-zinc-700 dark:text-zinc-300'
 								type='button'
-								aria-label='Decrease columns'
+								aria-label='Diminuir colunas'
 							>
 								<Minus size={24} />
 							</button>
@@ -164,7 +166,7 @@ export default function SizePage() {
 								disabled={project.cols >= 64}
 								className='flex h-12 w-12 touch-manipulation items-center justify-center rounded-xl bg-zinc-100 text-zinc-700 transition-transform active:scale-95 disabled:opacity-30 dark:bg-zinc-700 dark:text-zinc-300'
 								type='button'
-								aria-label='Increase columns'
+								aria-label='Aumentar colunas'
 							>
 								<Plus size={24} />
 							</button>
@@ -174,7 +176,7 @@ export default function SizePage() {
 					{/* Cell size control */}
 					<div className='flex items-center justify-between border-t border-zinc-200 pt-4 dark:border-zinc-700'>
 						<label className='text-lg font-medium text-zinc-700 dark:text-zinc-300'>
-							Cell Size
+							Tamanho da célula
 						</label>
 						<div className='flex items-center gap-2'>
 							<button
@@ -182,7 +184,7 @@ export default function SizePage() {
 								disabled={project.cellSize <= 8}
 								className='flex h-12 w-12 touch-manipulation items-center justify-center rounded-xl bg-zinc-100 text-zinc-700 transition-transform active:scale-95 disabled:opacity-30 dark:bg-zinc-700 dark:text-zinc-300'
 								type='button'
-								aria-label='Decrease cell size'
+								aria-label='Diminuir tamanho da célula'
 							>
 								<Minus size={24} />
 							</button>
@@ -200,7 +202,7 @@ export default function SizePage() {
 								disabled={project.cellSize >= 64}
 								className='flex h-12 w-12 touch-manipulation items-center justify-center rounded-xl bg-zinc-100 text-zinc-700 transition-transform active:scale-95 disabled:opacity-30 dark:bg-zinc-700 dark:text-zinc-300'
 								type='button'
-								aria-label='Increase cell size'
+								aria-label='Aumentar tamanho da célula'
 							>
 								<Plus size={24} />
 							</button>
@@ -234,7 +236,7 @@ export default function SizePage() {
 
 				{/* Preview */}
 				<div className='rounded-xl bg-white p-6 shadow-sm dark:bg-zinc-800'>
-					<h3 className='mb-4 text-sm font-medium text-zinc-500 dark:text-zinc-400'>Preview</h3>
+					<h3 className='mb-4 text-sm font-medium text-zinc-500 dark:text-zinc-400'>Prévia</h3>
 					<div className='flex justify-center'>
 						<GridPreview />
 					</div>
@@ -246,7 +248,7 @@ export default function SizePage() {
 					className='flex touch-manipulation items-center justify-center gap-2 rounded-xl bg-zinc-900 py-4 text-lg font-medium text-white transition-transform active:scale-[0.98] dark:bg-zinc-100 dark:text-zinc-900'
 					type='button'
 				>
-					<span>Choose Colors</span>
+					<span>Escolher cores</span>
 					<ArrowRight size={20} />
 				</button>
 			</section>

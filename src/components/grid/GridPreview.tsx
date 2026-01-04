@@ -37,7 +37,7 @@ export default function GridPreview() {
 				gridTemplateColumns: `repeat(${project.cols}, ${cellSizePreview}px)`,
 			}}
 			role='img'
-			aria-label={`Grid preview: ${project.rows} rows by ${project.cols} columns`}
+			aria-label={`Prévia da grade: ${project.rows} linhas por ${project.cols} colunas`}
 		>
 			{cells.map(cell => (
 				<div
