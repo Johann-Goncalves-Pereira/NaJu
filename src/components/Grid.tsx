@@ -11,14 +11,12 @@ export default function Grid({ rows, cols, cells }: GridProps) {
 
 	return (
 		<div
+			className='grid content-start gap-0'
+			role='grid'
 			style={{
-				display: 'grid',
 				gridTemplateRows,
 				gridTemplateColumns: gridTemplateCols,
-				gap: 4,
-				alignContent: 'start',
 			}}
-			role='grid'
 			aria-rowcount={rows}
 			aria-colcount={cols}
 		>
@@ -27,17 +25,10 @@ export default function Grid({ rows, cols, cells }: GridProps) {
 					key={cell.id}
 					role='gridcell'
 					aria-label={`Cell ${cell.row + 1}, ${cell.col + 1}`}
+					className='bg-white outline outline-zinc-200'
 					style={{
 						width: cellSize,
 						height: cellSize,
-						background: 'linear-gradient(180deg, #fff, #f3f4f6)',
-						border: '1px solid rgba(0,0,0,0.08)',
-						display: 'flex',
-						alignItems: 'center',
-						justifyContent: 'center',
-						fontSize: 10,
-						color: '#111827',
-						userSelect: 'none',
 					}}
 				>
 					{/* optional small label */}
