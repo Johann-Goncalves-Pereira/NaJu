@@ -85,12 +85,21 @@ export default function ExportPage() {
 
 		let svg = `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
-  <style>
-    .label { font-family: system-ui, sans-serif; font-size: 10px; fill: #71717a; }
-    .cell { stroke: #e4e4e7; stroke-width: 1; }
-		.coord-main { font-family: system-ui, sans-serif; font-size: 10px; }
-		.coord-sub { font-family: system-ui, sans-serif; font-size: 9px; }
-  </style>
+	<style>
+		/* Use CSS variables to pick up light/dark theme colors when possible */
+		:root {
+			--coord-fill: #71717a;
+			--cell-stroke: #e4e4e7;
+			--coord-main-dark: #111827;
+			--coord-sub-dark: #374151;
+			--coord-main-light: #ffffff;
+			--coord-sub-light: #e5e7eb;
+		}
+		.label { font-family: system-ui, sans-serif; fill: var(--coord-fill); }
+		.cell { stroke: var(--cell-stroke); stroke-width: 1; }
+		.coord-main { font-family: system-ui, sans-serif; }
+		.coord-sub { font-family: system-ui, sans-serif; }
+	</style>
   
   <!-- Background -->
   <rect width="${width}" height="${height}" fill="#ffffff"/>
@@ -98,19 +107,20 @@ export default function ExportPage() {
   <!-- Column labels -->
 `
 
-		// Column labels
+		// Column labels (position centered over each cell)
 		for (let c = 0; c < project.cols; c++) {
-			const x = labelSize + padding + c * cellSize + cellSize / 2
-			const y = padding + 12
+			const x = labelSize + padding + c * (cellSize + gap) + cellSize / 2
+			const y = padding + Math.max(10, Math.round(labelSize * 0.6))
 			svg += `  <text x="${x}" y="${y}" class="label" text-anchor="middle">${getColumnLabel(c)}</text>\n`
 		}
 
 		svg += `\n  <!-- Row labels -->\n`
 
-		// Row labels
+		// Row labels (position centered vertically for each row)
 		for (let r = 0; r < project.rows; r++) {
 			const x = padding + labelSize / 2
-			const y = labelSize + padding + r * cellSize + cellSize / 2 + 4
+			const y =
+				labelSize + padding + r * (cellSize + gap) + cellSize / 2 + Math.round(labelSize * 0.16)
 			svg += `  <text x="${x}" y="${y}" class="label" text-anchor="middle">${r + 1}</text>\n`
 		}
 
@@ -123,14 +133,19 @@ export default function ExportPage() {
 			const fill = cell.colorId ? (colorMap.get(cell.colorId) ?? '#ffffff') : '#ffffff'
 			// Rounded rect for the cell (provides gap visual)
 			svg += `  <rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" rx="${radius}" ry="${radius}" fill="${fill}" class="cell"/>\n`
+
 			// Stacked coordinates: column letter above, row number below (centered)
 			const colLabel = getColumnLabel(cell.col)
 			const centerX = x + cellSize / 2
-			const mainY = y + cellSize / 2 - 4
-			const subY = y + cellSize / 2 + 8
+
+			// Make font sizes relative to the cellSize
+			const mainFont = Math.max(8, Math.round(cellSize * 0.34))
+			const subFont = Math.max(7, Math.round(cellSize * 0.24))
+			const mainY = y + cellSize / 2 - Math.round(cellSize * 0.12)
+			const subY = y + cellSize / 2 + Math.round(cellSize * 0.18)
 			const contrasts = getContrastColors(fill)
-			svg += `  <text x="${centerX}" y="${mainY}" text-anchor="middle" class="coord-main" fill="${contrasts.main}">${colLabel}</text>\n`
-			svg += `  <text x="${centerX}" y="${subY}" text-anchor="middle" class="coord-sub" fill="${contrasts.sub}">${cell.row + 1}</text>\n`
+			svg += `  <text x="${centerX}" y="${mainY}" text-anchor="middle" class="coord-main" fill="${contrasts.main}" font-size="${mainFont}px">${colLabel}</text>\n`
+			svg += `  <text x="${centerX}" y="${subY}" text-anchor="middle" class="coord-sub" fill="${contrasts.sub}" font-size="${subFont}px">${cell.row + 1}</text>\n`
 		})
 
 		svg += `</svg>`
@@ -215,8 +230,8 @@ export default function ExportPage() {
 							{Array.from({ length: project.cols }, (_, c) => c).map(c => (
 								<text
 									key={`col-label-${getColumnLabel(c)}`}
-									x={labelSize + c * cellSize + cellSize / 2}
-									y={16}
+									x={labelSize + c * (cellSize + gap) + cellSize / 2}
+									y={Math.max(12, Math.round(labelSize * 0.6))}
 									textAnchor='middle'
 									className='fill-zinc-400 text-[10px] dark:fill-zinc-500'
 									style={{ fontFamily: 'system-ui, sans-serif' }}
@@ -230,7 +245,7 @@ export default function ExportPage() {
 								<text
 									key={`row-label-${r + 1}`}
 									x={labelSize / 2}
-									y={labelSize + r * cellSize + cellSize / 2 + 4}
+									y={labelSize + r * (cellSize + gap) + cellSize / 2 + Math.round(labelSize * 0.16)}
 									textAnchor='middle'
 									className='fill-zinc-400 text-[10px] dark:fill-zinc-500'
 									style={{ fontFamily: 'system-ui, sans-serif' }}
@@ -246,6 +261,8 @@ export default function ExportPage() {
 								const fill = cell.colorId ? (colorMap.get(cell.colorId) ?? '#ffffff') : '#ffffff'
 								const colLabel = getColumnLabel(cell.col)
 								const contrasts = getContrastColors(fill)
+								const mainFont = Math.max(8, Math.round(cellSize * 0.34))
+								const subFont = Math.max(7, Math.round(cellSize * 0.24))
 								return (
 									<g key={`${cell.row}-${cell.col}`}>
 										<rect
@@ -262,24 +279,24 @@ export default function ExportPage() {
 										/>
 										<text
 											x={x + cellSize / 2}
-											y={y + cellSize / 2 - 4}
+											y={y + cellSize / 2 - Math.round(cellSize * 0.12)}
 											textAnchor='middle'
 											style={{
 												fontFamily: 'system-ui, sans-serif',
 												fill: contrasts.main,
-												fontSize: 10,
+												fontSize: mainFont,
 											}}
 										>
 											{colLabel}
 										</text>
 										<text
 											x={x + cellSize / 2}
-											y={y + cellSize / 2 + 8}
+											y={y + cellSize / 2 + Math.round(cellSize * 0.18)}
 											textAnchor='middle'
 											style={{
 												fontFamily: 'system-ui, sans-serif',
 												fill: contrasts.sub,
-												fontSize: 9,
+												fontSize: subFont,
 											}}
 										>
 											{cell.row + 1}

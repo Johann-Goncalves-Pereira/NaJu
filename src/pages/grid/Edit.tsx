@@ -208,11 +208,12 @@ export default function EditPage() {
 			<div className='flex min-h-0 flex-1 items-start justify-center overflow-auto py-1'>
 				<div
 					ref={gridRef}
-					className='grid gap-px rounded-lg bg-zinc-200 p-px dark:bg-zinc-700'
+					className='grid gap-px rounded-lg p-px'
 					style={{
 						gridTemplateRows: `repeat(${project.rows}, ${project.cellSize}px)`,
 						gridTemplateColumns: `repeat(${project.cols}, ${project.cellSize}px)`,
 						touchAction: isPainting ? 'none' : 'pan-x pan-y', // Allow panning when not painting
+						backgroundColor: 'var(--grid-gap-bg, #e4e4e7)',
 					}}
 					role='grid'
 					aria-label='Drawing grid'
@@ -224,11 +225,12 @@ export default function EditPage() {
 								key={`${cell.row}-${cell.col}`}
 								role='gridcell'
 								aria-label={`Cell ${cell.row + 1}, ${cell.col + 1}`}
-								className='cursor-pointer rounded-sm outline outline-zinc-300 transition-colors'
+								className='cursor-pointer rounded-sm transition-colors'
 								style={{
 									width: project.cellSize,
 									height: project.cellSize,
 									backgroundColor: bgColor as string,
+									outline: '1px solid var(--cell-outline, rgba(0,0,0,0.06))',
 								}}
 								onPointerDown={() => handlePointerDown(cell.row, cell.col)}
 								onPointerEnter={e => handlePointerMove(e, cell.row, cell.col)}
