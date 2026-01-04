@@ -38,7 +38,7 @@ export default function ProjectsPage() {
 	const handleDeleteProject = useCallback(
 		(e: React.MouseEvent, id: string) => {
 			e.stopPropagation()
-			if (window.confirm('Are you sure you want to delete this project?')) {
+			if (window.confirm('Tem certeza que deseja excluir este projeto?')) {
 				deleteProject(id)
 			}
 		},
@@ -67,7 +67,7 @@ export default function ProjectsPage() {
 
 			<section className='flex w-full max-w-2xl flex-col gap-6'>
 				<header className='flex items-center justify-between'>
-					<h1 className='text-2xl font-semibold text-zinc-800 dark:text-zinc-100'>Projects</h1>
+					<h1 className='text-2xl font-semibold text-zinc-800 dark:text-zinc-100'>Projetos</h1>
 
 					{!isCreating && (
 						<button
@@ -76,7 +76,7 @@ export default function ProjectsPage() {
 							type='button'
 						>
 							<FolderPlus size={20} />
-							<span>New Project</span>
+							<span>Novo projeto</span>
 						</button>
 					)}
 				</header>
@@ -84,14 +84,14 @@ export default function ProjectsPage() {
 				{isCreating && (
 					<div className='flex flex-col gap-3 rounded-xl bg-white p-4 shadow-sm dark:bg-zinc-800'>
 						<label className='text-sm font-medium text-zinc-600 dark:text-zinc-400'>
-							Project Name
+							Nome do projeto
 						</label>
 						<input
 							type='text'
 							value={newProjectName}
 							onChange={handleInputChange}
 							onKeyDown={handleKeyDown}
-							placeholder='My Pixel Art'
+							placeholder='Minha arte de tricô'
 							autoFocus
 							className='w-full rounded-lg border border-zinc-200 px-4 py-3 text-lg focus:border-zinc-400 focus:outline-none dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100'
 						/>
@@ -102,7 +102,7 @@ export default function ProjectsPage() {
 								className='flex-1 touch-manipulation rounded-xl bg-zinc-900 py-3 text-white transition-transform active:scale-95 disabled:opacity-50 dark:bg-zinc-100 dark:text-zinc-900'
 								type='button'
 							>
-								Create
+								Criar
 							</button>
 							<button
 								onClick={() => {
@@ -112,7 +112,7 @@ export default function ProjectsPage() {
 								className='touch-manipulation rounded-xl bg-zinc-100 px-6 py-3 text-zinc-700 transition-transform active:scale-95 dark:bg-zinc-700 dark:text-zinc-300'
 								type='button'
 							>
-								Cancel
+								Cancelar
 							</button>
 						</div>
 					</div>
@@ -121,9 +121,9 @@ export default function ProjectsPage() {
 				{projects.length === 0 && !isCreating ? (
 					<div className='flex flex-col items-center gap-4 py-16 text-center'>
 						<Grid3X3 size={64} className='text-zinc-300 dark:text-zinc-600' />
-						<p className='text-lg text-zinc-500 dark:text-zinc-400'>No projects yet</p>
+						<p className='text-lg text-zinc-500 dark:text-zinc-400'>Nenhum projeto ainda</p>
 						<p className='text-sm text-zinc-400 dark:text-zinc-500'>
-							Create your first pixel art project
+							Crie seu primeiro projeto de tricô
 						</p>
 					</div>
 				) : (
@@ -142,7 +142,7 @@ export default function ProjectsPage() {
 												{project.name}
 											</span>
 											<span className='text-sm text-zinc-500 dark:text-zinc-400'>
-												{project.rows}×{project.cols} • {project.colors.length} colors
+												{project.rows}×{project.cols} • {project.colors.length} cores
 											</span>
 										</button>
 
@@ -151,7 +151,7 @@ export default function ProjectsPage() {
 												onClick={e => handleDeleteProject(e, project.id)}
 												className='touch-manipulation rounded-lg p-2 text-zinc-400 transition-all hover:bg-zinc-100 hover:text-red-500 active:scale-95 dark:hover:bg-zinc-700'
 												type='button'
-												aria-label='Delete project'
+												aria-label='Excluir projeto'
 											>
 												<Trash2 size={20} />
 											</button>

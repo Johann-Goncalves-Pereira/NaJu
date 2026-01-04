@@ -61,13 +61,13 @@ export default function ColorsPage() {
 		return (
 			<main className='flex h-dvh w-full items-center justify-center'>
 				<div className='text-center'>
-					<p className='text-lg text-zinc-500'>No project selected</p>
+					<p className='text-lg text-zinc-500'>Nenhum projeto selecionado</p>
 					<button
 						onClick={() => navigate({ to: '/grid' })}
 						className='mt-4 rounded-xl bg-zinc-900 px-6 py-3 text-white dark:bg-zinc-100 dark:text-zinc-900'
 						type='button'
 					>
-						Go to Projects
+						Ir para projetos
 					</button>
 				</div>
 			</main>
@@ -81,9 +81,9 @@ export default function ColorsPage() {
 			<section className='flex w-full max-w-2xl flex-col gap-6'>
 				<header className='flex items-center justify-between'>
 					<div>
-						<h1 className='text-2xl font-semibold text-zinc-800 dark:text-zinc-100'>Colors</h1>
+						<h1 className='text-2xl font-semibold text-zinc-800 dark:text-zinc-100'>Cores</h1>
 						<p className='mt-1 text-zinc-500 dark:text-zinc-400'>
-							Choose colors for your palette ({project.colors.length} colors)
+							Escolha as cores da sua paleta ({project.colors.length} cores)
 						</p>
 					</div>
 
@@ -94,7 +94,7 @@ export default function ColorsPage() {
 							type='button'
 						>
 							<Plus size={20} />
-							<span>Add Color</span>
+							<span>Adicionar cor</span>
 						</button>
 					)}
 				</header>
@@ -115,7 +115,7 @@ export default function ColorsPage() {
 									type='text'
 									value={newColorName}
 									onChange={handleNameChange}
-									placeholder='Color name'
+									placeholder='Nome da cor'
 									autoFocus
 									className='w-full rounded-lg border border-zinc-200 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100'
 								/>
@@ -135,7 +135,7 @@ export default function ColorsPage() {
 								className='flex-1 touch-manipulation rounded-xl bg-zinc-900 py-3 text-white transition-transform active:scale-95 disabled:opacity-50 dark:bg-zinc-100 dark:text-zinc-900'
 								type='button'
 							>
-								Add Color
+								Adicionar cor
 							</button>
 							<button
 								onClick={() => {
@@ -145,7 +145,7 @@ export default function ColorsPage() {
 								className='touch-manipulation rounded-xl bg-zinc-100 px-6 py-3 text-zinc-700 transition-transform active:scale-95 dark:bg-zinc-700 dark:text-zinc-300'
 								type='button'
 							>
-								Cancel
+								Cancelar
 							</button>
 						</div>
 					</div>
@@ -168,9 +168,9 @@ export default function ColorsPage() {
 
 				{project.colors.length === 0 && (
 					<div className='py-12 text-center'>
-						<p className='text-lg text-zinc-500 dark:text-zinc-400'>No colors in palette</p>
+						<p className='text-lg text-zinc-500 dark:text-zinc-400'>Nenhuma cor na paleta</p>
 						<p className='mt-2 text-sm text-zinc-400 dark:text-zinc-500'>
-							Add at least one color to start drawing
+							Adicione pelo menos uma cor para começar
 						</p>
 					</div>
 				)}
@@ -182,7 +182,7 @@ export default function ColorsPage() {
 					className='flex touch-manipulation items-center justify-center gap-2 rounded-xl bg-zinc-900 py-4 text-lg font-medium text-white transition-transform active:scale-[0.98] disabled:opacity-50 dark:bg-zinc-100 dark:text-zinc-900'
 					type='button'
 				>
-					<span>Start Drawing</span>
+					<span>Iniciar edição</span>
 					<ArrowRight size={20} />
 				</button>
 			</section>
@@ -230,7 +230,7 @@ function ColorCard({ color, isEditing, onEdit, onCancelEdit, onUpdate, onRemove 
 						className='flex-1 rounded-lg bg-zinc-900 py-2 text-xs text-white dark:bg-zinc-100 dark:text-zinc-900'
 						type='button'
 					>
-						Save
+						Salvar
 					</button>
 					<button
 						onClick={onCancelEdit}
@@ -263,7 +263,7 @@ function ColorCard({ color, isEditing, onEdit, onCancelEdit, onUpdate, onRemove 
 					}}
 					className='touch-manipulation rounded-lg p-1 text-zinc-400 opacity-0 transition-opacity group-hover:opacity-100 hover:text-red-500'
 					type='button'
-					aria-label='Remove color'
+					aria-label='Remover cor'
 				>
 					<Trash2 size={14} />
 				</button>

@@ -172,13 +172,13 @@ export default function ExportPage() {
 		return (
 			<main className='flex h-dvh w-full items-center justify-center'>
 				<div className='text-center'>
-					<p className='text-lg text-zinc-500'>No project selected</p>
+					<p className='text-lg text-zinc-500'>Nenhum projeto selecionado</p>
 					<button
 						onClick={() => navigate({ to: '/grid' })}
 						className='mt-4 rounded-xl bg-zinc-900 px-6 py-3 text-white dark:bg-zinc-100 dark:text-zinc-900'
 						type='button'
 					>
-						Go to Projects
+						Ir para projetos
 					</button>
 				</div>
 			</main>
@@ -200,7 +200,7 @@ export default function ExportPage() {
 			<section className='flex w-full max-w-4xl flex-col gap-6'>
 				<header className='flex items-center justify-between'>
 					<div>
-						<h1 className='text-2xl font-semibold text-zinc-800 dark:text-zinc-100'>Export</h1>
+						<h1 className='text-2xl font-semibold text-zinc-800 dark:text-zinc-100'>Exportar</h1>
 						<p className='mt-1 text-zinc-500 dark:text-zinc-400'>
 							{project.name} • {project.rows}×{project.cols}
 						</p>
@@ -212,7 +212,7 @@ export default function ExportPage() {
 						type='button'
 					>
 						<Download size={20} />
-						<span>Download SVG</span>
+						<span>Baixar SVG</span>
 					</button>
 				</header>
 
@@ -311,7 +311,7 @@ export default function ExportPage() {
 				{/* Color legend */}
 				<div className='rounded-xl bg-white p-4 shadow-sm dark:bg-zinc-800'>
 					<h3 className='mb-3 text-sm font-medium text-zinc-500 dark:text-zinc-400'>
-						Color Legend
+						Legenda de cores
 					</h3>
 					<div className='flex flex-wrap gap-3'>
 						{project.colors.map((color: CellColor) => {
@@ -334,10 +334,13 @@ export default function ExportPage() {
 
 				{/* Statistics */}
 				<div className='grid grid-cols-2 gap-4 sm:grid-cols-4'>
-					<StatCard label='Total Cells' value={project.rows * project.cols} />
-					<StatCard label='Filled Cells' value={cells.filter(c => c.colorId !== null).length} />
-					<StatCard label='Colors Used' value={project.colors.length} />
-					<StatCard label='Cell Size' value={`${project.cellSize}px`} />
+					<StatCard label='Total de células' value={project.rows * project.cols} />
+					<StatCard
+						label='Células preenchidas'
+						value={cells.filter(c => c.colorId !== null).length}
+					/>
+					<StatCard label='Cores usadas' value={project.colors.length} />
+					<StatCard label='Tamanho da célula' value={`${project.cellSize}px`} />
 				</div>
 			</section>
 		</main>

@@ -115,7 +115,7 @@ export default function EditPage() {
 	}, [history, historyIndex, project, setCellColor])
 
 	const handleClearGrid = useCallback(() => {
-		if (window.confirm('Clear all cells?')) {
+		if (window.confirm('Limpar todas as células?')) {
 			saveToHistory()
 			clearGrid()
 		}
@@ -135,13 +135,13 @@ export default function EditPage() {
 		return (
 			<main className='flex h-dvh w-full items-center justify-center'>
 				<div className='text-center'>
-					<p className='text-lg text-zinc-500'>No project selected</p>
+					<p className='text-lg text-zinc-500'>Nenhum projeto selecionado</p>
 					<button
 						onClick={() => navigate({ to: '/grid' })}
 						className='mt-4 rounded-xl bg-zinc-900 px-6 py-3 text-white dark:bg-zinc-100 dark:text-zinc-900'
 						type='button'
 					>
-						Go to Projects
+						Ir para projetos
 					</button>
 				</div>
 			</main>
@@ -164,7 +164,7 @@ export default function EditPage() {
 						disabled={historyIndex < 0}
 						className='flex h-12 w-12 touch-manipulation items-center justify-center rounded-xl bg-white text-zinc-700 shadow-sm transition-transform active:scale-95 disabled:opacity-30 dark:bg-zinc-800 dark:text-zinc-300'
 						type='button'
-						aria-label='Undo'
+						aria-label='Desfazer'
 					>
 						<Undo size={20} />
 					</button>
@@ -173,7 +173,7 @@ export default function EditPage() {
 						disabled={historyIndex >= history.length - 1}
 						className='flex h-12 w-12 touch-manipulation items-center justify-center rounded-xl bg-white text-zinc-700 shadow-sm transition-transform active:scale-95 disabled:opacity-30 dark:bg-zinc-800 dark:text-zinc-300'
 						type='button'
-						aria-label='Redo'
+						aria-label='Refazer'
 					>
 						<Redo size={20} />
 					</button>
@@ -188,7 +188,7 @@ export default function EditPage() {
 								: 'bg-white text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300'
 						}`}
 						type='button'
-						aria-label='Eraser'
+						aria-label='Borracha'
 						aria-pressed={isErasing}
 					>
 						<Eraser size={20} />
@@ -197,7 +197,7 @@ export default function EditPage() {
 						onClick={handleClearGrid}
 						className='flex h-12 w-12 touch-manipulation items-center justify-center rounded-xl bg-white text-zinc-700 shadow-sm transition-transform active:scale-95 dark:bg-zinc-800 dark:text-zinc-300'
 						type='button'
-						aria-label='Clear grid'
+						aria-label='Limpar grade'
 					>
 						<Trash2 size={20} />
 					</button>
@@ -216,7 +216,7 @@ export default function EditPage() {
 						backgroundColor: 'var(--grid-gap-bg, #e4e4e7)',
 					}}
 					role='grid'
-					aria-label='Drawing grid'
+					aria-label='Grade de edição'
 				>
 					{cells.map(cell => {
 						const bgColor = cell.colorId ? (colorMap.get(cell.colorId) ?? '#ffffff') : '#ffffff'
@@ -224,7 +224,7 @@ export default function EditPage() {
 							<div
 								key={`${cell.row}-${cell.col}`}
 								role='gridcell'
-								aria-label={`Cell ${cell.row + 1}, ${cell.col + 1}`}
+								aria-label={`Célula ${cell.row + 1}, ${cell.col + 1}`}
 								className='cursor-pointer rounded-sm transition-colors'
 								style={{
 									width: project.cellSize,

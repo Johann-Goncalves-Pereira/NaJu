@@ -16,30 +16,30 @@ const navItems: NavItem[] = [
 	{
 		to: '/grid',
 		icon: <FolderOpen size={20} />,
-		label: 'Projects',
+		label: 'Projetos',
 	},
 	{
 		to: '/grid/size',
 		icon: <Ruler size={20} />,
-		label: 'Size',
+		label: 'Tamanho',
 		requiresProject: true,
 	},
 	{
 		to: '/grid/colors',
 		icon: <Palette size={20} />,
-		label: 'Colors',
+		label: 'Cores',
 		requiresProject: true,
 	},
 	{
 		to: '/grid/edit',
 		icon: <Pencil size={20} />,
-		label: 'Edit',
+		label: 'Editar',
 		requiresProject: true,
 	},
 	{
 		to: '/grid/export',
 		icon: <Download size={20} />,
-		label: 'Export',
+		label: 'Exportar',
 		requiresProject: true,
 	},
 ]
@@ -68,7 +68,7 @@ export default function GridNavigation() {
 				onClick={handleToggle}
 				className='fixed top-4 left-4 z-50 flex h-12 w-12 touch-manipulation items-center justify-center rounded-xl bg-white/90 shadow-lg backdrop-blur-sm transition-transform active:scale-95 dark:bg-zinc-800/90'
 				type='button'
-				aria-label={isOpen ? 'Close navigation' : 'Open navigation'}
+				aria-label={isOpen ? 'Fechar navegação' : 'Abrir navegação'}
 				aria-expanded={isOpen}
 			>
 				{isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -86,20 +86,18 @@ export default function GridNavigation() {
 			{/* Sidebar */}
 			<nav
 				className={`fixed top-0 left-0 z-40 h-full w-64 transform bg-white/95 shadow-2xl backdrop-blur-sm transition-transform duration-300 ease-out dark:bg-zinc-900/95 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
-				aria-label='Grid editor navigation'
+				aria-label='Navegação do editor'
 			>
 				<div className='flex h-full flex-col p-4 pt-20'>
 					{/* Project info */}
 					{currentProject && (
 						<div className='mb-6 rounded-xl bg-zinc-100 p-3 dark:bg-zinc-800'>
-							<p className='text-xs font-medium text-zinc-500 dark:text-zinc-400'>
-								Current Project
-							</p>
+							<p className='text-xs font-medium text-zinc-500 dark:text-zinc-400'>Projeto atual</p>
 							<p className='truncate text-sm font-semibold text-zinc-800 dark:text-zinc-100'>
 								{currentProject.name}
 							</p>
 							<p className='text-xs text-zinc-500 dark:text-zinc-400'>
-								{currentProject.rows}×{currentProject.cols} • {currentProject.colors.length} colors
+								{currentProject.rows}×{currentProject.cols} • {currentProject.colors.length} cores
 							</p>
 						</div>
 					)}
@@ -145,9 +143,7 @@ export default function GridNavigation() {
 
 					{/* Footer */}
 					<div className='border-t border-zinc-200 pt-4 dark:border-zinc-700'>
-						<p className='text-center text-xs text-zinc-400 dark:text-zinc-500'>
-							Pixel Grid Editor
-						</p>
+						<p className='text-center text-xs text-zinc-400 dark:text-zinc-500'>NaJu Trico</p>
 					</div>
 				</div>
 			</nav>
