@@ -1,3 +1,5 @@
+import { useMemo } from 'react'
+
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
@@ -208,31 +210,45 @@ export const useProjectStore = create<ProjectStore>()(
 )
 
 // Selector hooks for better performance
-export const useCurrentProject = (): Project | null =>
-	useProjectStore(state =>
-		state.currentProjectId ? (state.projects[state.currentProjectId] ?? null) : null,
+// Use direct property access with stable selectors to prevent re-renders
+
+export function useCurrentProject(): Project | null {
+	const currentProjectId = useProjectStore(state => state.currentProjectId)
+	const projects = useProjectStore(state => state.projects)
+
+	return useMemo(
+		() => (currentProjectId ? (projects[currentProjectId] ?? null) : null),
+		[currentProjectId, projects],
 	)
-
-export const useProjects = (): Project[] => useProjectStore(state => Object.values(state.projects))
-
-export const useProjectColors = (): CellColor[] => {
-	const project = useCurrentProject()
-	return project?.colors ?? []
 }
 
-export const useGridCells = (): GridCell[] => {
-	const project = useCurrentProject()
-	if (!project) return []
+export function useProjects(): Project[] {
+	const projects = useProjectStore(state => state.projects)
 
-	const cells: GridCell[] = []
-	for (let r = 0; r < project.rows; r++) {
-		for (let c = 0; c < project.cols; c++) {
-			cells.push({
-				row: r,
-				col: c,
-				colorId: project.cells[`${r}-${c}`] ?? null,
-			})
+	return useMemo(() => Object.values(projects), [projects])
+}
+
+export function useProjectColors(): CellColor[] {
+	const project = useCurrentProject()
+	return useMemo(() => project?.colors ?? [], [project?.colors])
+}
+
+export function useGridCells(): GridCell[] {
+	const project = useCurrentProject()
+
+	return useMemo(() => {
+		if (!project) return []
+
+		const cells: GridCell[] = []
+		for (let r = 0; r < project.rows; r++) {
+			for (let c = 0; c < project.cols; c++) {
+				cells.push({
+					row: r,
+					col: c,
+					colorId: project.cells[`${r}-${c}`] ?? null,
+				})
+			}
 		}
-	}
-	return cells
+		return cells
+	}, [project])
 }
