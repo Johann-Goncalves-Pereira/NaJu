@@ -9,11 +9,10 @@ import { useCurrentProject } from '@/stores/projectStore'
 export default function GridPreview() {
 	const project = useCurrentProject()
 
-	const { cells, maxPreviewSize, cellSizePreview } = useMemo(() => {
-		if (!project) return { cells: [], maxPreviewSize: 0, cellSizePreview: 0 }
+	const { cells, cellSizePreview } = useMemo(() => {
+		if (!project) return { cells: [], cellSizePreview: 0 }
 
-		const maxSize = 200
-		const cellSize = Math.min(maxSize / Math.max(project.rows, project.cols), project.cellSize)
+		const cellSize = project.cellSize
 
 		const previewCells: { row: number; col: number }[] = []
 		for (let r = 0; r < project.rows; r++) {
@@ -24,7 +23,6 @@ export default function GridPreview() {
 
 		return {
 			cells: previewCells,
-			maxPreviewSize: maxSize,
 			cellSizePreview: Math.max(4, cellSize),
 		}
 	}, [project])
@@ -33,12 +31,10 @@ export default function GridPreview() {
 
 	return (
 		<div
-			className='grid gap-px rounded-lg bg-zinc-200 p-1 dark:bg-zinc-600'
+			className='grid gap-px overflow-auto rounded-lg bg-zinc-200 p-1 dark:bg-zinc-600'
 			style={{
 				gridTemplateRows: `repeat(${project.rows}, ${cellSizePreview}px)`,
 				gridTemplateColumns: `repeat(${project.cols}, ${cellSizePreview}px)`,
-				maxWidth: maxPreviewSize,
-				maxHeight: maxPreviewSize,
 			}}
 			role='img'
 			aria-label={`Grid preview: ${project.rows} rows by ${project.cols} columns`}
